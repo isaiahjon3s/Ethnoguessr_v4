@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EthnoGuessr - Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .intro-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .how-to-play {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: left;
+        }
+        .how-to-play h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .how-to-play ol {
+            padding-left: 20px;
+        }
+        .how-to-play li {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .play-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.5em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 20px;
+        }
+        .play-button:hover {
+            background: #219a52;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to EthnoGuessr</h1>
+        
+        <div class="intro-section">
+            <h2>Discover the World Through Faces</h2>
+            <p>Test your knowledge of human phenotypes and geographical distribution in this engaging guessing game. 
+               Look at the faces, study their features, and try to pinpoint their origin on the world map!</p>
+        </div>
+
+        <div class="how-to-play">
+            <h2>How to Play</h2>
+            <ol>
+                <li>You'll be shown two images representing a specific phenotype from a particular region.</li>
+                <li>Study the facial features and characteristics of the individuals shown.</li>
+                <li>Click on the world map where you think these phenotypes are most commonly found.</li>
+                <li>Get points based on how close your guess is to the actual location!</li>
+                <li>The closer your guess, the more points you earn.</li>
+            </ol>
+        </div>
+
+        <button class="play-button" onclick="window.location.href='/game'">Play Now</button>
+    </div>
+</body>
+</html> 
