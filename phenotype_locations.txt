@@ -1,0 +1,259 @@
+=== Ainuid ===
+Coordinates: 42.5, 141.5
+Description: 
+Images:
+- static/images/aoshima/aoshimam.jpg
+- static/images/aoshima/aoshimaf.jpg
+
+=== Alpinid ===
+Coordinates: 46.0, 7.0
+Description: 
+Images:
+- static/images/alpinid/alpinidm.jpg
+- static/images/alpinid/alpinidf.jpg
+
+=== Amazonid ===
+Coordinates: -3.0, -60.0
+Description: 
+Images:
+- static/images/amazonid/amazonidm.jpg
+- static/images/amazonid/amazonidf.jpg
+
+=== Andid ===
+Coordinates: -13.0, -72.0
+Description: 
+Images:
+- static/images/andid/andidm.jpg
+- static/images/andid/andidf.jpg
+
+=== Armenoid ===
+Coordinates: 40.0, 44.0
+Description: 
+Images:
+- static/images/armenoid/armenoidm.jpg
+- static/images/armenoid/armenoidf.jpg
+
+=== Australid ===
+Coordinates: -25.0, 133.0
+Description: 
+Images:
+- static/images/australid/australidm.jpg
+- static/images/australid/australidf.jpg
+
+=== Bambutid ===
+Coordinates: 1.0, 29.0
+Description: 
+Images:
+- static/images/bambutid/bambutidm.jpg
+- static/images/bambutid/bambutidf.jpg
+
+=== Bantuid ===
+Coordinates: -2.0, 23.0
+Description: 
+Images:
+- static/images/bantuid/bantuidm.jpg
+- static/images/bantuid/bantuidf.jpg
+
+=== Centralid ===
+Coordinates: 35.0, 105.0
+Description: 
+Images:
+- static/images/centralid/centralidm.jpg
+- static/images/centralid/centralidf.jpg
+
+=== Congolid ===
+Coordinates: -1.0, 15.0
+Description: 
+Images:
+- static/images/congolid/congolidm.jpg
+- static/images/congolid/congolidf.jpg
+
+=== Dinarid ===
+Coordinates: 44.0, 17.0
+Description: 
+Images:
+- static/images/dinarid/dinaridm.jpg
+- static/images/dinarid/dinaridf.jpg
+
+=== East Europid ===
+Coordinates: 55.0, 35.0
+Description: 
+Images:
+- static/images/easteuropid/easteuropidm.jpg
+- static/images/easteuropid/easteuropidf.jpg
+
+=== Eskimid ===
+Coordinates: 70.0, -100.0
+Description: 
+Images:
+- static/images/eskimid/eskimidm.jpg
+- static/images/eskimid/eskimidf.jpg
+
+=== Ethiopid ===
+Coordinates: 9.0, 38.0
+Description: 
+Images:
+- static/images/ethiopid/ethiopidm.jpg
+- static/images/ethiopid/ethiopidf.jpg
+
+=== Indid ===
+Coordinates: 20.0, 77.0
+Description: 
+Images:
+- static/images/indid/indidm.jpg
+- static/images/indid/indidf.jpg
+
+=== Indo Melanid ===
+Coordinates: 7.0, 80.0
+Description: 
+Images:
+- static/images/indomelanid/indomelanidm.jpg
+- static/images/indomelanid/indomelanidf.jpg
+
+=== Khoid ===
+Coordinates: -22.0, 17.0
+Description: 
+Images:
+- static/images/khoid/khoidm.jpg
+- static/images/khoid/khoidf.jpg
+
+=== Lagid ===
+Coordinates: 15.0, 18.0
+Description: 
+Images:
+- static/images/lagid/lagidm.jpg
+- static/images/lagid/lagidf.jpg
+
+=== Lappid ===
+Coordinates: 69.0, 27.0
+Description: 
+Images:
+- static/images/lappid/lappidm.jpg
+- static/images/lappid/lappidf.jpg
+
+=== Margid ===
+Coordinates: 25.0, 55.0
+Description: 
+Images:
+- static/images/margid/margidm.jpg
+- static/images/margid/margidf.jpg
+
+=== Mediterranid ===
+Coordinates: 38.0, 15.0
+Description: 
+Images:
+- static/images/mediterranid/mediterranidm.jpg
+- static/images/mediterranid/mediterranidf.jpg
+
+=== Melanesid ===
+Coordinates: -6.0, 155.0
+Description: 
+Images:
+- static/images/melanesid/melanesidm.jpg
+- static/images/melanesid/melanesidf.jpg
+
+=== Negritid ===
+Coordinates: 7.0, 125.0
+Description: 
+Images:
+- static/images/negritid/negritidm.jpg
+- static/images/negritid/negritidf.jpg
+
+=== Nilotid ===
+Coordinates: 4.0, 32.0
+Description: 
+Images:
+- static/images/nilotid/nilotidm.jpg
+- static/images/nilotid/nilotidf.jpg
+
+=== Nordid ===
+Coordinates: 60.0, 15.0
+Description: 
+Images:
+- static/images/nordid/nordidm.jpg
+- static/images/nordid/nordidf.jpg
+
+=== Orientalid ===
+Coordinates: 35.0, 105.0
+Description: 
+Images:
+- static/images/orientalid/orientalidm.jpg
+- static/images/orientalid/orientalidf.jpg
+
+=== Pacifid ===
+Coordinates: -13.0, -172.0
+Description: 
+Images:
+- static/images/pacifid/pacifidm.jpg
+- static/images/pacifid/pacifidf.jpg
+
+=== Patagonid ===
+Coordinates: -50.0, -70.0
+Description: 
+Images:
+- static/images/patagonid/patagonidm.jpg
+- static/images/patagonid/patagonidf.jpg
+
+=== Polynesid ===
+Coordinates: -17.0, -149.0
+Description: 
+Images:
+- static/images/polynesid/polynesidm.jpg
+- static/images/polynesid/polynesidf.jpg
+
+=== Sanid ===
+Coordinates: -22.0, 20.0
+Description: 
+Images:
+- static/images/sanid/sanidm.jpg
+- static/images/sanid/sanidf.jpg
+
+=== Sibirid ===
+Coordinates: 60.0, 100.0
+Description: 
+Images:
+- static/images/sibirid/sibiridm.jpg
+- static/images/sibirid/sibiridf.jpg
+
+=== Silvid ===
+Coordinates: 55.0, 105.0
+Description: 
+Images:
+- static/images/silvid/silvidm.jpg
+- static/images/silvid/silvidf.jpg
+
+=== Sinid ===
+Coordinates: 35.0, 105.0
+Description: 
+Images:
+- static/images/sinid/sinidm.jpg
+- static/images/sinid/sinidf.jpg
+
+=== South Mongolid ===
+Coordinates: 45.0, 105.0
+Description: 
+Images:
+- static/images/southmongolid/southmongolidm.jpg
+- static/images/southmongolid/southmongolidf.jpg
+
+=== Sudanid ===
+Coordinates: 15.0, 30.0
+Description: 
+Images:
+- static/images/sudanid/sudanidm.jpg
+- static/images/sudanid/sudanidf.jpg
+
+=== Tungid ===
+Coordinates: 50.0, 120.0
+Description: 
+Images:
+- static/images/tungid/tungidm.jpg
+- static/images/tungid/tungidf.jpg
+
+=== Turanid ===
+Coordinates: 45.0, 60.0
+Description: 
+Images:
+- static/images/turanid/turanidm.jpg
+- static/images/turanid/turanidf.jpg
+

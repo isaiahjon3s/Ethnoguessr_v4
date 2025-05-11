@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Add New Image</h2>
+    <form id="addImageForm" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="image" class="form-label">Image File</label>
+            <input type="file" class="form-control" id="image" name="image" required accept="image/*">
+        </div>
+        <div class="mb-3">
+            <label for="location_name" class="form-label">Location Name</label>
+            <input type="text" class="form-control" id="location_name" name="location_name" required>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="latitude" class="form-label">Latitude</label>
+                    <input type="number" class="form-control" id="latitude" name="latitude" step="any" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="number" class="form-control" id="longitude" name="longitude" step="any" required>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description (Optional)</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Image</button>
+    </form>
+    <div id="result" class="mt-3" style="display: none;"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('addImageForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('/admin/add_image', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultDiv = document.getElementById('result');
+        if (data.error) {
+            resultDiv.className = 'alert alert-danger mt-3';
+            resultDiv.textContent = data.error;
+        } else {
+            resultDiv.className = 'alert alert-success mt-3';
+            resultDiv.textContent = 'Image added successfully!';
+            this.reset();
+        }
+        resultDiv.style.display = 'block';
+    })
+    .catch(error => {
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'alert alert-danger mt-3';
+        resultDiv.textContent = 'An error occurred while adding the image.';
+        resultDiv.style.display = 'block';
+    });
+});
+</script>
+{% endblock %} 
