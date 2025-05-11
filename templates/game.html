@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EthnoGuessr</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -8,56 +9,74 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #f0f0f0;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .map-section {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-        .map-container {
-            flex: 1;
-        }
         #map {
-            height: 300px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100vw;
+            height: 50vh;
+            border-radius: 0;
+            box-shadow: none;
+            margin: 0;
         }
-        .controls {
-            width: 200px;
+        .main-content {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .bottom-section {
-            display: flex;
-            gap: 20px;
             align-items: flex-start;
+            margin-top: 10px;
+            width: 100vw;
+            box-sizing: border-box;
+            padding: 0 40px;
+        }
+        .card.left, .card.right {
+            width: 350px;
+            min-width: 300px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+        }
+        .card.center {
+            margin: 0 auto;
+            background: none;
+            box-shadow: none;
+            padding: 0;
         }
         .images-section {
             display: flex;
-            gap: 20px;
-            flex: 1;
+            gap: 5px;
+            justify-content: center;
+            align-items: flex-start;
         }
         .image-container {
-            text-align: center;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 10px;
-            width: 300px;
+            padding: 15px;
+            width: 160px;
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .image-container img {
             width: 100%;
-            max-height: 400px;
+            height: 100%;
             object-fit: contain;
             border-radius: 8px;
+        }
+        .score, .distance, .location {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .score { color: #2c3e50; font-weight: bold; }
+        .distance { color: #7f8c8d; }
+        .location { color: #27ae60; }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 1px;
+            margin-left: 16px;
         }
         .guess-btn, .next-btn {
             padding: 10px 20px;
@@ -69,7 +88,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: background 0.2s;
-            width: 100%;
+            width: 150px;
         }
         .guess-btn:disabled {
             background: #aaa;
@@ -79,40 +98,17 @@
             background: #3498db;
             display: none;
         }
-        .result {
-            width: 300px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: none;
-        }
-        .score {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .distance {
-            color: #7f8c8d;
-        }
-        .location {
-            color: #27ae60;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>EthnoGuessr</h1>
-        <div class="map-section">
-            <div class="map-container">
-                <div id="map"></div>
-            </div>
-            <div class="controls">
-                <button class="guess-btn" id="guessBtn" disabled>Guess!</button>
-                <button class="next-btn" id="nextBtn" onclick="location.reload()">Next Face</button>
-            </div>
+    <div id="map"></div>
+    <div class="main-content">
+        <div class="card left">
+            <h2>{{ phenotype_name }}</h2>
+            <h4>Description:</h4>
+            <p>{{ description }}</p>
         </div>
-        <div class="bottom-section">
+        <div class="card center">
             <div class="images-section">
                 <div class="image-container">
                     <img src="{{ male_image }}" alt="Phenotype 1">
@@ -120,34 +116,31 @@
                 <div class="image-container">
                     <img src="{{ female_image }}" alt="Phenotype 2">
                 </div>
-            </div>
-            <div class="result">
-                <p class="score">Points: <span id="points">0</span></p>
-                <p class="distance">Distance: <span id="distance">0</span> km</p>
-                <p class="location">Actual location: <span id="location">Unknown</span></p>
+                <div class="controls">
+                    <button class="guess-btn" id="guessBtn" disabled>Confirm Guess</button>
+                    <button class="next-btn" id="nextBtn" onclick="location.reload()">Next Face</button>
+                </div>
             </div>
         </div>
+        <div class="card right" id="resultCard" style="display:none;">
+            <div class="score">Points: <span id="points">0</span></div>
+            <div class="distance">Distance: <span id="distance">0</span> km</div>
+            <div class="location">Actual location: <span id="location">Unknown</span></div>
+        </div>
     </div>
-
     <script>
-        // Initialize map with English labels
         var map = L.map('map', {
             minZoom: 2,
             maxZoom: 18
         }).setView([0, 0], 2);
-        
-        // Use OpenStreetMap with English labels
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             language: 'en'
         }).addTo(map);
-
         var marker = null;
         var guessLatLng = null;
         var guessBtn = document.getElementById('guessBtn');
         var nextBtn = document.getElementById('nextBtn');
-
-        // Handle map click
         map.on('click', function(e) {
             if (marker) {
                 map.removeLayer(marker);
@@ -156,8 +149,6 @@
             guessLatLng = e.latlng;
             guessBtn.disabled = false;
         });
-
-        // Handle guess button click
         guessBtn.addEventListener('click', function() {
             if (!guessLatLng) return;
             fetch('/submit_guess', {
@@ -172,12 +163,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.querySelector('.result').style.display = 'block';
+                document.getElementById('resultCard').style.display = 'block';
                 document.getElementById('points').textContent = data.points;
                 document.getElementById('distance').textContent = data.distance;
                 document.getElementById('location').textContent = data.actual_location.name;
-                
-                // Add marker for actual location
                 L.marker([data.actual_location.latitude, data.actual_location.longitude], {
                     icon: L.divIcon({
                         className: 'actual-location',
@@ -185,7 +174,6 @@
                         iconSize: [30, 30]
                     })
                 }).addTo(map);
-                
                 guessBtn.style.display = 'none';
                 nextBtn.style.display = 'inline-block';
             });
