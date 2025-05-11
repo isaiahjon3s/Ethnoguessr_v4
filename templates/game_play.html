@@ -282,10 +282,12 @@
 <body>
     <div id="map"></div>
     <div class="main-content">
-        <div class="card left">
+        <div class="card left" id="phenotypeCard" style="display: none;">
             <h2>{{ phenotype_name }}</h2>
+            {% if description %}
             <h4>Description</h4>
             <p>{{ description }}</p>
+            {% endif %}
         </div>
         <div class="card center">
             <div class="images-section">
@@ -346,6 +348,7 @@
             .then(response => response.json())
             .then(data => {
                 resultCard.style.display = 'block';
+                document.getElementById('phenotypeCard').style.display = 'block';
                 setTimeout(() => resultCard.classList.add('visible'), 10);
                 document.getElementById('points').textContent = data.points;
                 document.getElementById('distance').textContent = data.distance;
