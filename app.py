@@ -41,39 +41,6 @@ def load_phenotype_data():
     
     return phenotypes
 
-class Image(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(255), unique=True, nullable=False)
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
-    location_name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'filename': self.filename,
-            'lat': self.latitude,
-            'lng': self.longitude,
-            'location': self.location_name,
-            'description': self.description
-        }
-
-def calculate_distance(lat1, lon1, lat2, lon2):
-    """Calculate the distance between two points on Earth using the Haversine formula."""
-    R = 6371  # Earth's radius in kilometers
-
-    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-
-    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1-a))
-    distance = R * c
-
-    return distance
-
 @app.route('/')
 def index():
     return render_template('landing.html')
@@ -125,40 +92,19 @@ def submit_guess():
         }
     })
 
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
+def calculate_distance(lat1, lon1, lat2, lon2):
+    """Calculate the distance between two points on Earth using the Haversine formula."""
+    R = 6371  # Earth's radius in kilometers
 
-@app.route('/admin/add_image', methods=['POST'])
-def add_image():
-    if 'image' not in request.files:
-        return jsonify({'error': 'No image file provided'}), 400
-    
-    file = request.files['image']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
 
-    # Save the image file
-    filename = file.filename
-    file.save(os.path.join('static/images', filename))
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1-a))
+    distance = R * c
 
-    # Create new image record
-    new_image = Image(
-        filename=filename,
-        latitude=float(request.form['latitude']),
-        longitude=float(request.form['longitude']),
-        location_name=request.form['location_name'],
-        description=request.form.get('description', '')
-    )
-
-    db.session.add(new_image)
-    db.session.commit()
-
-    return jsonify({'message': 'Image added successfully', 'image': new_image.to_dict()})
-
-# Create the database tables
-with app.app_context():
-    db.create_all()
+    return distance
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True, host='0.0.0.0', port=5001) 

@@ -6,24 +6,21 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
         :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --success: #10b981;
-            --success-dark: #059669;
-            --text-primary: #111827;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #059669;
+            --success-dark: #047857;
+            --text-primary: #1f2937;
             --text-secondary: #4b5563;
-            --bg-light: #f8fafc;
+            --bg-light: #f9fafb;
             --bg-white: #ffffff;
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --radius-sm: 0.5rem;
-            --radius: 1rem;
-            --radius-lg: 1.5rem;
         }
 
         * {
@@ -33,7 +30,7 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-primary);
             line-height: 1.5;
@@ -55,28 +52,24 @@
             padding: 0 2rem;
             gap: 2rem;
             justify-content: center;
-            max-width: 1600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .card {
             background: var(--bg-white);
-            border-radius: var(--radius);
+            border-radius: 1rem;
             box-shadow: var(--shadow);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
 
         .card.left, .card.right {
-            width: 380px;
-            min-width: 320px;
-            padding: 1.75rem;
+            width: 350px;
+            min-width: 300px;
+            padding: 1.5rem;
         }
 
         .card.center {
@@ -87,87 +80,61 @@
         }
 
         .card h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 1rem;
-            letter-spacing: -0.025em;
         }
 
         .card h4 {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
         }
 
         .card p {
             color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .images-section {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
             align-items: flex-start;
         }
 
         .image-container {
             background: var(--bg-white);
-            border-radius: var(--radius);
+            border-radius: 1rem;
             box-shadow: var(--shadow);
-            padding: 1.25rem;
-            width: 200px;
-            height: 240px;
+            padding: 1rem;
+            width: 180px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .image-container:hover {
             transform: scale(1.02);
         }
 
-        .image-container:hover::before {
-            opacity: 1;
-        }
-
         .image-container img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            border-radius: var(--radius-sm);
-            transition: transform 0.3s ease;
+            border-radius: 0.5rem;
         }
 
         .score, .distance, .location {
             font-size: 1.1rem;
-            margin: 1rem 0;
+            margin: 0.75rem 0;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
-            background: var(--bg-light);
-            transition: all 0.2s ease;
+            gap: 0.5rem;
         }
 
         .score { 
@@ -188,23 +155,20 @@
             flex-direction: column;
             gap: 1rem;
             margin-top: 1px;
-            margin-left: 1.5rem;
+            margin-left: 1rem;
         }
 
         .guess-btn, .next-btn {
-            padding: 0.875rem 1.75rem;
+            padding: 0.75rem 1.5rem;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
             color: white;
             border: none;
-            border-radius: var(--radius);
+            border-radius: 0.75rem;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 180px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            letter-spacing: -0.01em;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s ease;
+            width: 160px;
+            font-family: 'Inter', sans-serif;
         }
 
         .guess-btn {
@@ -213,7 +177,7 @@
 
         .guess-btn:hover:not(:disabled) {
             background: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .guess-btn:disabled {
@@ -229,13 +193,13 @@
 
         .next-btn:hover {
             background: var(--success-dark);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         #resultCard {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         #resultCard.visible {
@@ -258,24 +222,6 @@
             .images-section {
                 flex-wrap: wrap;
             }
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-light);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--text-secondary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-primary);
         }
     </style>
 </head>
