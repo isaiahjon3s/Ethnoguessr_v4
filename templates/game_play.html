@@ -314,9 +314,9 @@
             minZoom: 2,
             maxZoom: 18
         }).setView([0, 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            language: 'en'
+        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            maxZoom: 18
         }).addTo(map);
         var marker = null;
         var guessLatLng = null;
@@ -353,13 +353,31 @@
                 document.getElementById('points').textContent = data.points;
                 document.getElementById('distance').textContent = data.distance;
                 document.getElementById('location').textContent = data.actual_location.name;
-                L.marker([data.actual_location.latitude, data.actual_location.longitude], {
+                
+                // Add actual location marker
+                const actualMarker = L.marker([data.actual_location.latitude, data.actual_location.longitude], {
                     icon: L.divIcon({
                         className: 'actual-location',
                         html: '📍',
                         iconSize: [30, 30]
                     })
                 }).addTo(map);
+
+                // Draw line between guess and actual location
+                const line = L.polyline([
+                    [guessLatLng.lat, guessLatLng.lng],
+                    [data.actual_location.latitude, data.actual_location.longitude]
+                ], {
+                    color: '#dc2626',
+                    weight: 3,
+                    opacity: 0.8
+                }).addTo(map);
+
+                // Fit map to show both markers and the line
+                map.fitBounds(line.getBounds(), {
+                    padding: [50, 50]
+                });
+
                 guessBtn.style.display = 'none';
                 nextBtn.style.display = 'inline-block';
             });
