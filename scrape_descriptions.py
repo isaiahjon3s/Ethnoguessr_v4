@@ -13,22 +13,28 @@ def get_description(url):
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
-            # Find the element containing 'Description'
-            desc_elem = None
-            for tag in soup.find_all(text=True):
-                if tag and 'description' in tag.lower():
-                    desc_elem = tag.parent
+            # Find the <h3> tag with 'Description' in its text
+            desc_h3 = None
+            for h3 in soup.find_all('h3'):
+                if 'description' in h3.get_text(strip=True).lower():
+                    desc_h3 = h3
                     break
-            if desc_elem:
-                # Find the next element with non-empty text
-                next_elem = desc_elem.find_next()
-                while next_elem and (not next_elem.get_text(strip=True) or 'description' in next_elem.get_text(strip=True).lower()):
-                    next_elem = next_elem.find_next()
-                if next_elem:
-                    # Extract the entire text block, ignoring HTML elements but keeping their text
-                    text = next_elem.get_text(strip=True)
-                    if text:
-                        return text
+            if desc_h3:
+                description_parts = []
+                # Go through siblings after the <h3>Description</h3> until the next <h3>
+                for sib in desc_h3.next_siblings:
+                    if getattr(sib, 'name', None) == 'h3':
+                        break
+                    if isinstance(sib, str):
+                        text = sib.strip()
+                        if text:
+                            description_parts.append(text)
+                    elif hasattr(sib, 'get_text'):
+                        text = sib.get_text(separator=' ', strip=True)
+                        if text:
+                            description_parts.append(text)
+                if description_parts:
+                    return ' '.join(description_parts)
     except Exception as e:
         print(f"Error scraping {url}: {str(e)}")
     return ""

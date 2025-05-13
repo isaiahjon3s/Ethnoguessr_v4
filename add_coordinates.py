@@ -21,9 +21,9 @@ PHENOTYPE_COORDINATES = {
     "Indid": (20.0, 77.0),    # India
     "Indo Melanid": (7.0, 80.0), # Sri Lanka
     "Khoid": (-22.0, 17.0),   # Namibia
-    "Lagid": (15.0, 18.0),    # Chad
+    "Lagid": (-15.0, -70.0),  # South America (Peru/Bolivia)
     "Lappid": (69.0, 27.0),   # Lapland
-    "Margid": (25.0, 55.0),   # Arabian Peninsula
+    "Margid": (20.0, -100.0), # Western Mexico
     "Mediterranid": (38.0, 15.0), # Mediterranean
     "Melanesid": (-6.0, 155.0), # Melanesia
     "Negritid": (7.0, 125.0), # Philippines
