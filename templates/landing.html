@@ -1,95 +1,107 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EthnoGuessr - Welcome</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .container {
-            max-width: 800px;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        .intro-section {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .how-to-play {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            text-align: left;
-        }
-        .how-to-play h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .how-to-play ol {
-            padding-left: 20px;
-        }
-        .how-to-play li {
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .play-button {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.5em;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-            margin-top: 20px;
-        }
-        .play-button:hover {
-            background: #219a52;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to EthnoGuessr</h1>
-        
-        <div class="intro-section">
-            <h2>Discover the World Through Faces</h2>
-            <p>Test your knowledge of human phenotypes and geographical distribution in this engaging guessing game. 
-               Look at the faces, study their features, and try to pinpoint their origin on the world map!</p>
-        </div>
+{% extends "base.html" %}
 
-        <div class="how-to-play">
-            <h2>How to Play</h2>
-            <ol>
-                <li>You'll be shown two images representing a specific phenotype from a particular region.</li>
-                <li>Study the facial features and characteristics of the individuals shown.</li>
-                <li>Click on the world map where you think these phenotypes are most commonly found.</li>
-                <li>Get points based on how close your guess is to the actual location!</li>
-                <li>The closer your guess, the more points you earn.</li>
-            </ol>
-        </div>
+{% block navbar %}{% endblock %}
 
-        <button class="play-button" onclick="window.location.href='/game'">Play Now</button>
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+        min-height: 100vh;
+        font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+        color: #e0e7ef;
+        overflow-x: hidden;
+    }
+    .glass-card {
+        background: rgba(30, 41, 59, 0.7);
+        border-radius: 2rem;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(255,255,255,0.12);
+        padding: 3rem 2.5rem;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+    .neon-title {
+        font-size: 3.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: #00fff7;
+        text-shadow: 0 0 12px #00fff7, 0 0 32px #00fff7, 0 0 2px #fff;
+        margin-bottom: 1.5rem;
+    }
+    .neon-cta {
+        background: linear-gradient(90deg, #00fff7 0%, #007cf0 100%);
+        color: #0f172a;
+        font-size: 1.6rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 2rem;
+        padding: 1.1rem 3.5rem;
+        margin-top: 2.5rem;
+        box-shadow: 0 0 24px #00fff7, 0 0 8px #007cf0;
+        transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
+        outline: none;
+        position: relative;
+        z-index: 2;
+        animation: pulse 1.5s infinite alternate;
+    }
+    .neon-cta:hover, .neon-cta:focus {
+        transform: scale(1.07);
+        box-shadow: 0 0 48px #00fff7, 0 0 16px #007cf0;
+        color: #fff;
+        background: linear-gradient(90deg, #007cf0 0%, #00fff7 100%);
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 24px #00fff7, 0 0 8px #007cf0; }
+        100% { box-shadow: 0 0 48px #00fff7, 0 0 16px #007cf0; }
+    }
+    .glass-card h2 {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        letter-spacing: -0.01em;
+    }
+    .glass-card ol {
+        color: #cbd5e1;
+        font-size: 1.15rem;
+        margin-left: 1.2rem;
+        margin-bottom: 0;
+    }
+    .glass-card li {
+        margin-bottom: 0.7rem;
+        line-height: 1.7;
+    }
+    .glass-card .divider {
+        border-top: 1.5px solid rgba(255,255,255,0.08);
+        margin: 2rem 0 2.5rem 0;
+    }
+    .subtitle {
+        font-size: 1.35rem;
+        color: #a5f3fc;
+        margin-bottom: 2.2rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+    }
+</style>
+<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="glass-card text-center">
+        <div class="neon-title">EthnoGuessr</div>
+        <div class="subtitle">Discover the world through faces.<br>Test your knowledge of human diversity and geography.</div>
+        <a href="{{ url_for('game') }}" class="neon-cta">Play Now</a>
+        <div class="divider"></div>
+        <h2>How to Play</h2>
+        <ol class="text-start">
+            <li>You'll be shown two images representing a specific phenotype from a particular region.</li>
+            <li>Study the facial features and characteristics of the individuals shown.</li>
+            <li>Click on the world map where you think these phenotypes are most commonly found.</li>
+            <li>Get points based on how close your guess is to the actual location!</li>
+            <li>The closer your guess, the more points you earn.</li>
+        </ol>
     </div>
-</body>
-</html> 
+</div>
+{% endblock %}  
