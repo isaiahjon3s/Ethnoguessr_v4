@@ -277,6 +277,14 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--text-primary);
         }
+
+        .round-indicator {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #a5f3fc;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -290,6 +298,7 @@
             {% endif %}
         </div>
         <div class="card center">
+            <div class="round-indicator">Round {{ current_round }} of {{ total_rounds }}</div>
             <div class="images-section">
                 <div class="image-container">
                     <img src="{{ male_image }}" alt="Phenotype 1">
@@ -299,7 +308,7 @@
                 </div>
                 <div class="controls">
                     <button class="guess-btn" id="guessBtn" disabled>Confirm Guess</button>
-                    <button class="next-btn" id="nextBtn" onclick="location.reload()">Next Face</button>
+                    <button class="next-btn" id="nextBtn">Next Round</button>
                 </div>
             </div>
         </div>
@@ -323,6 +332,17 @@
         var guessBtn = document.getElementById('guessBtn');
         var nextBtn = document.getElementById('nextBtn');
         var resultCard = document.getElementById('resultCard');
+
+        // Add keyboard event listener for Enter key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                if (guessBtn.style.display !== 'none' && !guessBtn.disabled) {
+                    guessBtn.click();
+                } else if (nextBtn.style.display === 'inline-block') {
+                    nextBtn.click();
+                }
+            }
+        });
 
         map.on('click', function(e) {
             if (marker) {
@@ -380,7 +400,24 @@
 
                 guessBtn.style.display = 'none';
                 nextBtn.style.display = 'inline-block';
+                
+                // Update round indicator
+                document.querySelector('.round-indicator').textContent = `Round ${data.current_round} of ${data.total_rounds}`;
+
+                // Handle game completion
+                if (data.game_complete) {
+                    nextBtn.textContent = 'View Results';
+                    nextBtn.addEventListener('click', function() {
+                        window.location.href = '/game_complete';
+                    }, { once: true });
+                }
             });
+        });
+
+        nextBtn.addEventListener('click', function() {
+            if (this.textContent === 'Next Round') {
+                window.location.reload();
+            }
         });
     </script>
 </body>

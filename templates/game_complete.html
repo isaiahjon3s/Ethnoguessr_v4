@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+        min-height: 100vh;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: #e0e7ef;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    }
+    .glass-card {
+        background: rgba(30, 41, 59, 0.7);
+        border-radius: 2rem;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(255,255,255,0.12);
+        padding: 3rem 2.5rem;
+        margin: 2rem auto;
+        max-width: 800px;
+        position: relative;
+    }
+    .neon-title {
+        font-size: 3.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: #00fff7;
+        text-shadow: 0 0 12px #00fff7, 0 0 32px #00fff7, 0 0 2px #fff;
+        margin-bottom: 1.5rem;
+    }
+    .score-display {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 2rem 0;
+        text-align: center;
+    }
+    .average-score {
+        font-size: 1.8rem;
+        color: #a5f3fc;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    .scores-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+    .score-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 1rem;
+        text-align: center;
+    }
+    .score-item .round {
+        color: #a5f3fc;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    .score-item .points {
+        color: #00fff7;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    .play-again-btn {
+        background: linear-gradient(90deg, #00fff7 0%, #007cf0 100%);
+        color: #0f172a;
+        font-size: 1.6rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 2rem;
+        padding: 1.1rem 3.5rem;
+        margin-top: 2.5rem;
+        box-shadow: 0 0 24px #00fff7, 0 0 8px #007cf0;
+        transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
+        outline: none;
+        position: relative;
+        z-index: 2;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .play-again-btn:hover {
+        transform: scale(1.07);
+        box-shadow: 0 0 48px #00fff7, 0 0 16px #007cf0;
+        color: #fff;
+        background: linear-gradient(90deg, #007cf0 0%, #00fff7 100%);
+    }
+    .congrats-message {
+        font-size: 1.4rem;
+        color: #fff;
+        margin: 2rem 0;
+        text-align: center;
+        line-height: 1.6;
+    }
+</style>
+
+<div class="glass-card text-center">
+    <div class="neon-title">Game Complete!</div>
+    
+    <div class="congrats-message">
+        Congratulations on completing all 10 rounds!<br>
+        You've shown your knowledge of world phenotypes.
+    </div>
+
+    <div class="score-display">
+        Total Score: {{ total_score }}
+    </div>
+    
+    <div class="average-score">
+        Average Score: {{ average_score }}
+    </div>
+
+    <div class="scores-grid">
+        {% for score in scores %}
+        <div class="score-item">
+            <div class="round">Round {{ loop.index }}</div>
+            <div class="points">{{ score }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('reset_game') }}" class="play-again-btn">Play Again</a>
+</div>
+{% endblock %} 

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import json
 import os
 import random
@@ -47,6 +47,18 @@ def index():
 
 @app.route('/game')
 def game():
+    # Initialize game session if not exists
+    if 'game_state' not in session:
+        session['game_state'] = {
+            'round': 1,
+            'total_score': 0,
+            'scores': []
+        }
+    
+    # Check if game is complete
+    if session['game_state']['round'] > 10:
+        return redirect(url_for('game_complete'))
+    
     # Get random phenotype
     phenotypes = load_phenotype_data()
     phenotype = random.choice(phenotypes)
@@ -62,7 +74,9 @@ def game():
                          phenotype_name=phenotype['name'],
                          description=phenotype['description'],
                          male_image=phenotype['images'][0],
-                         female_image=phenotype['images'][1])
+                         female_image=phenotype['images'][1],
+                         current_round=session['game_state']['round'],
+                         total_rounds=10)
 
 @app.route('/submit_guess', methods=['POST'])
 def submit_guess():
@@ -82,6 +96,32 @@ def submit_guess():
     distance = calculate_distance(guess_lat, guess_lon, actual_lat, actual_lon)
     points = max(0, int(5000 * (1 - distance/20000)))  # 20000km is max distance
     
+    # Update game state
+    game_state = session['game_state']
+    game_state['total_score'] += points
+    game_state['scores'].append(points)
+    
+    # Check if this was the last round
+    if game_state['round'] == 10:
+        game_state['round'] += 1
+        session['game_state'] = game_state
+        return jsonify({
+            'points': points,
+            'distance': round(distance, 2),
+            'actual_location': {
+                'latitude': actual_lat,
+                'longitude': actual_lon,
+                'name': phenotype['name']
+            },
+            'current_round': 10,
+            'total_rounds': 10,
+            'total_score': game_state['total_score'],
+            'game_complete': True
+        })
+    
+    game_state['round'] += 1
+    session['game_state'] = game_state
+    
     return jsonify({
         'points': points,
         'distance': round(distance, 2),
@@ -89,8 +129,30 @@ def submit_guess():
             'latitude': actual_lat,
             'longitude': actual_lon,
             'name': phenotype['name']
-        }
+        },
+        'current_round': game_state['round'],
+        'total_rounds': 10,
+        'total_score': game_state['total_score'],
+        'game_complete': False
     })
+
+@app.route('/game_complete')
+def game_complete():
+    if 'game_state' not in session:
+        return redirect(url_for('index'))
+    
+    game_state = session['game_state']
+    average_score = game_state['total_score'] / 10
+    
+    return render_template('game_complete.html',
+                         total_score=game_state['total_score'],
+                         average_score=round(average_score, 2),
+                         scores=game_state['scores'])
+
+@app.route('/reset_game')
+def reset_game():
+    session.pop('game_state', None)
+    return redirect(url_for('game'))
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate the distance between two points on Earth using the Haversine formula."""
