@@ -43,6 +43,9 @@ def load_phenotype_data():
 
 @app.route('/')
 def index():
+    # Clear any existing game state when returning to home
+    session.pop('game_state', None)
+    session.pop('current_phenotype', None)
     return render_template('landing.html')
 
 @app.route('/game')

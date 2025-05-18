@@ -2,21 +2,17 @@
 
 {% block navbar %}{% endblock %}
 
+{% block container %}
 {% block content %}
 <style>
     body {
-        background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+        background: linear-gradient(135deg, #1a2c35 0%, #3d6b7d 100%);
         min-height: 100vh;
         font-family: 'Plus Jakarta Sans', sans-serif;
         color: #e0e7ef;
         overflow-x: hidden;
         margin: 0;
         padding: 0;
-    }
-    .container {
-        padding: 0;
-        margin: 0;
-        max-width: 100%;
     }
     .glass-card {
         background: rgba(30, 41, 59, 0.7);
@@ -73,7 +69,13 @@
         font-size: 1.2rem;
         font-weight: 600;
     }
-    .play-again-btn {
+    .button-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2.5rem;
+    }
+    .neon-button {
         background: linear-gradient(90deg, #00fff7 0%, #007cf0 100%);
         color: #0f172a;
         font-size: 1.6rem;
@@ -81,7 +83,6 @@
         border: none;
         border-radius: 2rem;
         padding: 1.1rem 3.5rem;
-        margin-top: 2.5rem;
         box-shadow: 0 0 24px #00fff7, 0 0 8px #007cf0;
         transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
         outline: none;
@@ -90,7 +91,7 @@
         text-decoration: none;
         display: inline-block;
     }
-    .play-again-btn:hover {
+    .neon-button:hover {
         transform: scale(1.07);
         box-shadow: 0 0 48px #00fff7, 0 0 16px #007cf0;
         color: #fff;
@@ -130,6 +131,10 @@
         {% endfor %}
     </div>
 
-    <a href="{{ url_for('reset_game') }}" class="play-again-btn">Play Again</a>
+    <div class="button-container">
+        <a href="{{ url_for('reset_game') }}" class="neon-button">Play Again</a>
+        <a href="{{ url_for('index') }}" class="neon-button">Return Home</a>
+    </div>
 </div>
+{% endblock %}
 {% endblock %} 

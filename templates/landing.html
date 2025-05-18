@@ -2,14 +2,17 @@
 
 {% block navbar %}{% endblock %}
 
+{% block container %}
 {% block content %}
 <style>
     body {
-        background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+        background: linear-gradient(135deg, #1a2c35 0%, #3d6b7d 100%);
         min-height: 100vh;
         font-family: 'Plus Jakarta Sans', sans-serif;
         color: #e0e7ef;
         overflow-x: hidden;
+        margin: 0;
+        padding: 0;
     }
     .glass-card {
         background: rgba(30, 41, 59, 0.7);
@@ -19,11 +22,8 @@
         -webkit-backdrop-filter: blur(12px);
         border: 1.5px solid rgba(255,255,255,0.12);
         padding: 3rem 2.5rem;
-        margin-top: 4rem;
-        margin-bottom: 2rem;
+        margin: 2rem auto;
         max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
         position: relative;
     }
     .neon-title {
@@ -49,6 +49,8 @@
         position: relative;
         z-index: 2;
         animation: pulse 1.5s infinite alternate;
+        text-decoration: none;
+        display: inline-block;
     }
     .neon-cta:hover, .neon-cta:focus {
         transform: scale(1.07);
@@ -88,20 +90,20 @@
         letter-spacing: 0.01em;
     }
 </style>
-<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="glass-card text-center">
-        <div class="neon-title">EthnoGuessr</div>
-        <div class="subtitle">Discover the world through faces.<br>Test your knowledge of human diversity and geography.</div>
-        <a href="{{ url_for('game') }}" class="neon-cta">Play Now</a>
-        <div class="divider"></div>
-        <h2>How to Play</h2>
-        <ol class="text-start">
-            <li>You'll be shown two images representing a specific phenotype from a particular region.</li>
-            <li>Study the facial features and characteristics of the individuals shown.</li>
-            <li>Click on the world map where you think these phenotypes are most commonly found.</li>
-            <li>Get points based on how close your guess is to the actual location!</li>
-            <li>The closer your guess, the more points you earn.</li>
-        </ol>
-    </div>
+
+<div class="glass-card text-center">
+    <div class="neon-title">EthnoGuessr</div>
+    <div class="subtitle">Discover the world through faces.<br>Test your knowledge of human diversity and geography.</div>
+    <a href="{{ url_for('game') }}" class="neon-cta">Play Now</a>
+    <div class="divider"></div>
+    <h2>How to Play</h2>
+    <ol class="text-start">
+        <li>You'll be shown two images representing a specific phenotype from a particular region.</li>
+        <li>Study the facial features and characteristics of the individuals shown.</li>
+        <li>Click on the world map where you think these phenotypes are most commonly found.</li>
+        <li>Get points based on how close your guess is to the actual location!</li>
+        <li>The closer your guess, the more points you earn.</li>
+    </ol>
 </div>
+{% endblock %}
 {% endblock %}  
