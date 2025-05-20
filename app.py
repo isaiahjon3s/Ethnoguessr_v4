@@ -97,7 +97,7 @@ def submit_guess():
     
     # Calculate distance and points
     distance = calculate_distance(guess_lat, guess_lon, actual_lat, actual_lon)
-    points = max(0, int(5000 * (1 - distance/20000)))  # 20000km is max distance
+    points = max(0, int(5000 * (1 - (distance/10000))**2))  # quadratic drop-off, 5000 max, 0 at 10,000km
     
     # Update game state
     game_state = session['game_state']
